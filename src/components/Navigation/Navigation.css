@@ -1,0 +1,56 @@
+.nav{
+    display: flex;
+    justify-content: space-between;
+    background-color: rgba(196, 196, 196, 0.01);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    width: 1440px;
+}
+
+.nav__logo-link{
+    text-decoration: none;
+}
+
+.nav__logo{
+    font-family: "Roboto-Slab", Arial, sans-serif;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 1.2;
+    color: rgba(255, 255, 255, 1);
+    text-decoration: none;
+    margin: 0;
+    padding: 30px 0 26px 104px;
+}
+
+.nav__links{
+    display: flex;
+    align-items: center;
+    margin: 0;
+    padding: 0 104px 0 0;
+    font-size: 18px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 1);
+}
+
+.nav__home-button{
+    all: unset;
+    padding: 30px 10px 23px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nav__signin-button{
+    all: unset;
+    width: 176px;
+    height: 48px;
+    border: 1px solid rgba(255, 255, 255, 1);
+    border-radius: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 34px;
+}
+
+.selected{
+    border-bottom: 3px solid rgba(255, 255, 255, 1);
+}
