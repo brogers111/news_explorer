@@ -19,6 +19,11 @@
     text-decoration: none;
     margin: 0;
     padding: 30px 0 26px 104px;
+    cursor: default;
+}
+
+.nav__logo-text{
+    cursor: pointer;
 }
 
 .nav__links{
@@ -37,6 +42,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
 }
 
 .nav__signin-button{
@@ -49,6 +55,7 @@
     align-items: center;
     justify-content: center;
     margin-left: 34px;
+    cursor: pointer;
 }
 
 .selected{

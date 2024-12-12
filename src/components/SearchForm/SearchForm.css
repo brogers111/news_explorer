@@ -1,0 +1,62 @@
+.form{
+    text-align: center;
+    max-width: 608px;
+    margin: 0 auto;
+}
+
+.form__header{
+    font-family: "Roboto-Slab", Arial, sans-serif;
+    font-weight: 400;
+    font-size: 60px;
+    line-height: 1.1;
+    color: rgba(255, 255, 255, 1);
+    text-align: start;
+    padding: 80px 0 32px;
+    margin: 0;
+
+}
+
+.form__desc{
+    font-size: 18px;
+    color: rgba(255, 255, 255, 1);
+    margin: 0;
+    padding-bottom: 88px;
+}
+
+.form__search {
+    position: relative;
+    padding-bottom: 80px;
+}
+
+.form__input {
+    box-sizing: border-box;
+    background-color: rgba(255, 255, 255, 1);
+    width: 100%;
+    height: 64px;
+    padding: 21px 24px;
+    border-radius: 100px;
+    border: 1px solid rgba(209, 210, 214, 1);
+}
+
+.form__input::placeholder{
+    color: rgba(182, 188, 191, 1);
+}
+
+.form__input:focus {
+    outline: none;
+    border: 2px solid rgba(47, 113, 229, 1);
+}
+
+.form__submit-button {
+    all: unset;
+    position: absolute;
+    top: 0px;
+    right: -1px;
+    color: rgba(255, 255, 255, 1);
+    background-color: rgba(47, 113, 229, 1);
+    font-weight: 500;
+    padding: 22px 56px;
+    border-radius: 100px;
+    cursor: pointer;
+    z-index: 1;
+}

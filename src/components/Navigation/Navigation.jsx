@@ -5,7 +5,9 @@ function Navigation() {
     return(
         <nav className="nav">
             <Link to="/" className='nav__logo-link'>
-                <p className="nav__logo">NewsExplorer</p>
+                <p className="nav__logo">
+                    <span className="nav__logo-text">NewsExplorer</span>
+                </p>
             </Link>
             <div className="nav__links">
                 <button className="nav__home-button">Home</button>

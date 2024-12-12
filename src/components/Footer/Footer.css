@@ -1,0 +1,45 @@
+.footer{
+    margin: 0;
+    padding: 26px 104px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer__details{
+    color: rgba(182, 188, 191, 1);
+    margin: 0;
+    font-size: 16px;
+}
+
+.footer__links{
+    display: flex;
+    align-items: center;
+}
+
+.footer__home-link{
+    all: unset;
+    color: rgba(26, 27, 34, 1);
+}
+
+.footer__tripleten-link{
+    all: unset;
+    margin-left: 40px;
+    color: rgba(26, 27, 34, 1);
+}
+
+.footer__github-link{
+    all: unset;
+    background: center / cover no-repeat url(../../assets/github-icon.svg);
+    height: 24px;
+    width: 24px;
+    margin-left: 40px;
+}
+
+.footer__facebook-link{
+    all: unset;
+    background: center / cover no-repeat url(../../assets/facebook-icon.svg);
+    height: 24px;
+    width: 24px;
+    margin-left: 24px;
+}

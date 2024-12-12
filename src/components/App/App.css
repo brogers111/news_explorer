@@ -60,10 +60,7 @@
   margin: 0 auto;
   font-family: "Roboto", Arial, sans-serif;
   font-weight: 400;
+  font-size: 18px;
   line-height: 1.3;
   justify-content: space-between;
-}
-
-.page__content{
-  padding: 0 104px;
 }
