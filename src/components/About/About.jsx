@@ -8,8 +8,10 @@ function About(){
             <div className="about__details">
                 <h2 className="about__title">About the author</h2>
                 <p className="about__desc">
-                    This block describes the project author. Here you should indicate your name, what you do, and which development technologies you know.<br/><br/>
-                    You can also talk about your experience with TripleTen, what you learned there, and how you can help potential customers.
+                    Hey, I&apos;m Brandon Rogers, a full-stack software developer participating in the TripleTen Software Engineering Bootcamp. <br/><br/>
+                    Right now, I&apos;m an SEO Specialist at Amsive, a full-time robotics major at Metropolitan State University of Denver, and co-founder of an app called Inscription.<br/><br/>
+                    I&apos;m currently proficient in development technologies that include HTML, CSS, JavaScript, NodeJS, React, Vue, Express, MongoDB, and more, most of which I have been able to learn throughout the TripleTen Bootcamp.<br/><br/>
+                    As the last sprint in the TripleTen Software Engineering Bootcamp, I chose to build this NewsExplorer application, so I hope you enjoy using it!
                 </p>
             </div>
         </section>
