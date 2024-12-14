@@ -29,6 +29,7 @@
 .nav__links{
     display: flex;
     align-items: center;
+    gap: 56px;
     margin: 0;
     padding: 0 104px 0 0;
     font-size: 18px;
@@ -38,11 +39,40 @@
 
 .nav__home-button{
     all: unset;
+    color: rgba(255, 255, 255, 1);
     padding: 30px 10px 23px;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
+}
+
+.nav__articles-button{
+    all: unset;
+    padding: 30px 10px 23px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255, 255, 255, 1);
+    cursor: pointer;
+}
+
+.nav__user-button{
+    all: unset;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    width: 112px;
+    height: 48px;
+    border: 1px solid rgba(255, 255, 255, 1);
+    border-radius: 100px;
+    cursor: pointer;
+}
+
+.nav__logout-icon{
+    height: 16px;
+    width: 17.4px;
 }
 
 .nav__signin-button{
@@ -54,7 +84,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-left: 34px;
     cursor: pointer;
 }
 

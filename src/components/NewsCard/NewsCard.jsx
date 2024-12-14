@@ -4,7 +4,10 @@ import cardImage from '../../assets/card-image.png';
 function NewsCard() {
     return (
         <li className="card">
-            <button className="card__save-button"></button>
+            <div className="card__save-button-container">
+                <span className="card__hover-text">Sign in to save articles</span>
+                <button className="card__save-button"></button>
+            </div>
             <img src={cardImage} alt="test" className="card__image" />
             <div className="card__info">
                 <p className="card__date">November 4, 2020</p>
