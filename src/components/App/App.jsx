@@ -15,6 +15,11 @@ function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
 
+    // Add state for search term and add it to the card object
+    // Use map to get all keywords into an array of search term keys
+    // Iterate through array and add keywords to object and keep a count
+    // Use template literal to display different text options
+
     // Modal Open and Close
     const handleModalOpen = (modalType) => {
         setActiveModal(modalType);
@@ -29,6 +34,8 @@ function App() {
           closeActiveModal();
         }
       }
+
+      // Use Location.pathname hook to identify location and solve conditional
 
       useEffect(() => {
 

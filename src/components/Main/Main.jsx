@@ -22,4 +22,6 @@ function Main() {
     )
 }
 
+// Add simple NotFound component instead of Preloader
+
 export default Main;
