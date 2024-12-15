@@ -5,14 +5,14 @@ import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import { useFormAndValidation } from "../../hooks/useFormAndValidation";
 import "./LoginModal.css";
 
-function LoginModal({ activeModal, closeActiveModal, handleOutsideClick, handleModalOpen }) {
+function LoginModal({ activeModal, closeActiveModal, handleOutsideClick, handleModalOpen, handleLogin }) {
     const { isLoading } = useContext(CurrentUserContext);
     const {values, handleChange, errors, isValid, resetForm} = useFormAndValidation()
 
     const handleSubmit = (e) => {
         e.preventDefault();
         if (isValid) {
-            closeActiveModal();
+            handleLogin(values);
         }
     };
 

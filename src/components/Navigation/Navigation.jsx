@@ -6,8 +6,10 @@ import lightLogoutButton from "../../assets/logout-icon-light.svg";
 import darkLogoutButton from "../../assets/logout-icon-dark.svg";
 import './Navigation.css';
 
-function Navigation({ handleModalOpen }) {
-    const { isLoggedIn, identifyLocation } = useContext(CurrentUserContext);
+function Navigation({ handleModalOpen, handleLogout }) {
+    const { currentUser, isLoggedIn, identifyLocation } = useContext(CurrentUserContext);
+
+    const currentUserFirstName = currentUser?.name ? currentUser.name.split(" ")[0] : "";
 
     return(
         <nav className={`nav ${identifyLocation === "/saved-news" ? "nav_dark" : ""}`}>
@@ -25,7 +27,7 @@ function Navigation({ handleModalOpen }) {
                         <Link to="/saved-news">
                             <button className={`nav__home-button ${identifyLocation === "/saved-news" ? "selected" : ""}`}>Saved articles</button>
                         </Link>
-                        <button className="nav__user-button">Elise <img src={identifyLocation === "/saved-news" ? darkLogoutButton : lightLogoutButton} alt="logout icon" className="nav__logout-icon" /></button>
+                        <button onClick={handleLogout} className="nav__user-button">{currentUserFirstName}<img src={identifyLocation === "/saved-news" ? darkLogoutButton : lightLogoutButton} alt="logout icon" className="nav__logout-icon" /></button>
                     </div>
                 </>
             ): (

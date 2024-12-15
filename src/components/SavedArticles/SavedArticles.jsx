@@ -8,8 +8,8 @@ function SavedArticles({ newsData }) {
         <section>
             <section className="saved-articles">
                 <ul className="cards__list">
-                    {newsData.map((article) => {
-                        return <NewsCard key={article.index} article={article}/>
+                    {newsData.map((article, index) => {
+                        return <NewsCard key={index} article={article}/>
                     })}
                 </ul>
             </section>

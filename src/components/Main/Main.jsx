@@ -8,25 +8,23 @@ import NotFound from '../NotFound/Notfound';
 
 import './Main.css';
 
-function Main({ newsData }) {
+function Main({ newsData, visibleCards, handleShowMoreCards }) {
     const { isLoading } = useContext(CurrentUserContext);
-    const [visibleCards, setVisibleCards] = useState(3);
-
-    const handleShowMore = () => {
-        setVisibleCards((prevVisible) => prevVisible + 3);
-    }
+    const [hasSearched, setHasSearched] = useState(false);
 
     useEffect(() => {
-        setVisibleCards(3);
+        if (newsData.length > 0) {
+            setHasSearched(true);
+        }
     }, [newsData]);
 
     return (
         <main>
             { isLoading && <Preloader /> }
 
-            { newsData.length === 0 && !isLoading ? (
+            { newsData.length === 0 && !isLoading && hasSearched && (
                 <NotFound />
-            ) : null }
+            )}
 
             { newsData.length > 0 && !isLoading && (
                 <section className="cards">
@@ -37,7 +35,7 @@ function Main({ newsData }) {
                         })}
                     </ul>
                     {visibleCards < newsData.length && (
-                        <button className="cards__show-more-button" onClick={handleShowMore}>Show more</button>
+                        <button className="cards__show-more-button" onClick={handleShowMoreCards}>Show more</button>
                     )}
                 </section>
             )}

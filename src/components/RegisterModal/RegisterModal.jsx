@@ -5,14 +5,14 @@ import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import { useFormAndValidation } from "../../hooks/useFormAndValidation";
 import "./RegisterModal.css";
 
-function RegisterModal({ activeModal, closeActiveModal, handleOutsideClick, handleModalOpen }) {
+function RegisterModal({ activeModal, closeActiveModal, handleOutsideClick, handleModalOpen, handleRegistration }) {
     const { isLoading } = useContext(CurrentUserContext);
     const {values, handleChange, errors, isValid, resetForm} = useFormAndValidation()
 
     const handleSubmit = (e) => {
         e.preventDefault();
         if (isValid) {
-            closeActiveModal();
+            handleRegistration(values);
         }
     };
 
