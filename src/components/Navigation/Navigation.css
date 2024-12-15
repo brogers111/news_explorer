@@ -1,3 +1,4 @@
+/* Home Styling */
 .nav{
     display: flex;
     justify-content: space-between;
@@ -26,10 +27,21 @@
     cursor: pointer;
 }
 
+.nav__links a{
+    text-decoration: none;
+    color: inherit;
+}
+
+.nav__links a:visited{
+    text-decoration: none;
+    color: inherit;
+}
+
 .nav__links{
     display: flex;
     align-items: center;
     gap: 56px;
+    text-decoration: none;
     margin: 0;
     padding: 0 104px 0 0;
     font-size: 18px;
@@ -89,4 +101,32 @@
 
 .selected{
     border-bottom: 3px solid rgba(255, 255, 255, 1);
+}
+
+/* Saved Articles Styling */
+.nav_dark{
+    background: transparent;
+    border-bottom: 1px solid rgba(209, 210, 214, 1);
+}
+
+.nav_dark .nav__logo{
+    color: rgba(26, 27, 34, 1);
+}
+
+.nav_dark .nav__home-button,
+.nav_dark .nav__articles-button,
+.nav_dark .nav__user-button
+.nav_dark .nav__links{
+    text-decoration: none;
+    color: rgba(26, 27, 34, 1);
+}
+
+.nav_dark .selected{
+    background: transparent;
+    border-bottom: 3px solid rgba(26, 27, 34, 1);
+}
+
+.nav_dark .nav__user-button{
+    border: 1px solid rgba(26, 27, 34, 1);
+    color: rgba(26, 27, 34, 1);
 }

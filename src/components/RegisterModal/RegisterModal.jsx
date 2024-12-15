@@ -1,9 +1,12 @@
-import { useEffect } from "react";
+import { useEffect, useContext } from "react";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
+
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import { useFormAndValidation } from "../../hooks/useFormAndValidation";
 import "./RegisterModal.css";
 
-function RegisterModal({ activeModal, closeActiveModal, handleOutsideClick, isLoading, handleModalOpen }) {
+function RegisterModal({ activeModal, closeActiveModal, handleOutsideClick, handleModalOpen }) {
+    const { isLoading } = useContext(CurrentUserContext);
     const {values, handleChange, errors, isValid, resetForm} = useFormAndValidation()
 
     const handleSubmit = (e) => {

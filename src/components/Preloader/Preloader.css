@@ -17,23 +17,16 @@
     margin: auto;
     animation: spin .75s infinite linear;
 }
-  
-@keyframes spin {
-    100% {
-        transform: rotate(360deg);
-    }
-}
-
-.preloader__not-found{
-    margin: 0 auto;
-    background-image: url("../../assets/nothing-found.svg");
-    height: 82px;
-    width: 82px;
-}
 
 .preloader__text{
     margin: 0;
     text-align: center;
     padding-top: 24px;
     color: rgba(182, 188, 191, 1);
+}
+  
+@keyframes spin {
+    100% {
+        transform: rotate(360deg);
+    }
 }

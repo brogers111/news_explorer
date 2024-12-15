@@ -1,20 +1,52 @@
-import './NewsCard.css';
-import cardImage from '../../assets/card-image.png';
+import { useContext } from "react";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
+import defaultImage from '../../assets/default-image.jpg';
 
-function NewsCard() {
+import './NewsCard.css';
+
+function NewsCard({ article }) {
+    const { identifyLocation } = useContext(CurrentUserContext);
+
+    const imageSource = article.image || defaultImage;
+
     return (
         <li className="card">
-            <div className="card__save-button-container">
-                <span className="card__hover-text">Sign in to save articles</span>
-                <button className="card__save-button"></button>
-            </div>
-            <img src={cardImage} alt="test" className="card__image" />
-            <div className="card__info">
-                <p className="card__date">November 4, 2020</p>
-                <h3 className="card__title">Everyone Needs a Special &apos;Sit Spot&apos; in Nature</h3>
-                <p className="card__desc">Ever since I read Richard Louv&apos;s influential book, &quot;Last Child in the Woods,&quot; the idea of having a special &quot;sit spot&quot; has stuck with me. This advice, which Louv attributes to nature educator Jon Young, is for both adults and children to find...</p>
-                <p className="card__source">TREEHUGGER</p>
-            </div>
+            { identifyLocation === "/" ? (
+                <>
+                    <div className="card__save-button-container">
+                        <span className="card__hover-text">Sign in to save articles</span>
+                        <button className="card__save-button"></button>
+                    </div>
+                    <div className="card__content">
+                        <img src={imageSource} alt="article-image" className="card__image" />
+                        <div className="card__info">
+                            <p className="card__date">{article.date}</p>
+                            <h3 className="card__title">{article.title}</h3>
+                            <p className="card__desc">{article.description}</p>
+                            <p className="card__source">{article.source}</p>
+                        </div>
+                    </div>
+                </>
+            ) : (
+                <>
+                    <div className="card__save-button-container">
+                        <span className="card__hover-text">Remove from saved</span>
+                        <button className="card__delete-button"></button>
+                    </div>
+                    <div className="card__keyword-container">
+                        <p className="card__keyword">{article.keyword}</p>
+                    </div>
+                    <div className="card__content">
+                        <img src={imageSource} alt="article-image" className="card__image" />
+                        <div className="card__info">
+                            <p className="card__date">{article.date}</p>
+                            <h3 className="card__title">{article.title}</h3>
+                            <p className="card__desc">{article.description}</p>
+                            <p className="card__source">{article.source}</p>
+                        </div>
+                    </div>
+                </>
+            )}
         </li>
     )
 }
