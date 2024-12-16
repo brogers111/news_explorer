@@ -59,11 +59,15 @@ function App() {
 
     const handleSearch = (keyword) => {
         handleIsLoading();
-        setHasSearched(true);
         getNews({searchQuery: keyword})
         .then((data) => {
             const filteredData = filterNewsData(data, keyword);
             setNewsData(filteredData);
+            setHasSearched(true);
+        })
+        .catch((error) => {
+            console.error("Search error:", error);
+            setHasSearched(true);
         })
         .finally(() => {
             setIsLoading(false);
