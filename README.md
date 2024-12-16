@@ -27,5 +27,4 @@ To view this project on gh-pages [click here.](https://brogers111.github.io/news
 
 ## Future Improvements
 
-- Login/Logout Functionality
-- Backend DB For Saved Articles By User
+- Build out Express Backend for User and Article Storage

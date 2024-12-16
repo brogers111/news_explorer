@@ -9,12 +9,17 @@ function NewsCard({ article, handleSaveArticle, isArticleSaved }) {
 
     const imageSource = article.image || defaultImage;
 
-    const handleSaveClick = () => {
+    const handleSaveClick = (e) => {
+        e.stopPropagation();
         handleSaveArticle(article);
     };
 
+    const handleCardClick = () => {
+        window.open(article.id, "_blank");
+    }
+
     return (
-        <li className="card">
+        <li className="card" onClick={handleCardClick}>
             { identifyLocation === "/" ? (
                 <>
                     <div className="card__save-button-container">
