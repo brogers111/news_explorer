@@ -83,6 +83,11 @@
     opacity: 1;
 }
 
+.card__save-button_active::before{
+    background-image: url("../../assets/save-icon-clicked.svg");
+    opacity: 1;
+}
+
 .card__delete-button-container:hover .card__hover-text {
     display: block;
     opacity: 1;

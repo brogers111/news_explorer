@@ -8,7 +8,7 @@ import NotFound from '../NotFound/Notfound';
 
 import './Main.css';
 
-function Main({ newsData, visibleCards, handleShowMoreCards }) {
+function Main({ newsData, visibleCards, handleShowMoreCards, handleSaveArticle, isArticleSaved }) {
     const { isLoading } = useContext(CurrentUserContext);
     const [hasSearched, setHasSearched] = useState(false);
 
@@ -31,7 +31,7 @@ function Main({ newsData, visibleCards, handleShowMoreCards }) {
                     <h2 className="cards__header">Search results</h2>
                     <ul className="cards__list">
                         {newsData.slice(0, visibleCards).map((article, index) => {
-                            return <NewsCard key={index} article={article}/>
+                            return <NewsCard key={index} article={article} handleSaveArticle={handleSaveArticle} isArticleSaved={isArticleSaved} />
                         })}
                     </ul>
                     {visibleCards < newsData.length && (

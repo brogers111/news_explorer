@@ -7,8 +7,10 @@ import Main from '../Main/Main';
 import Footer from '../Footer/Footer';
 import LoginModal from '../LoginModal/LoginModal';
 import RegisterModal from '../RegisterModal/RegisterModal';
+import RegisterSuccessModal from '../RegisterSuccessModal/RegisterSuccessModal';
 import SavedArticles from '../SavedArticles/SavedArticles';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
+import { saveArticle, unsaveArticle } from '../../utils/api';
 
 import { getNews, filterNewsData } from '../../utils/newsApi';
 import { register, login, checkToken, logout } from '../../utils/auth';
@@ -17,12 +19,13 @@ import './App.css';
 
 function App() {
     const [newsData, setNewsData] = useState([]);
+    const [savedArticles, setSavedArticles] = useState([]);
     const [activeModal, setActiveModal] = useState("");
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [identifyLocation, setIdentifyLocation] = useState();
     const [currentUser, setCurrentUser] = useState({});
-    const [isLoggedInLoading, setIsLoggedInLoading] = useState(true);
+    const [isLoggedInLoading, setIsLoggedInLoading] = useState(false);
     const [visibleCards, setVisibleCards] = useState(3);
 
     const location = useLocation();
@@ -58,7 +61,6 @@ function App() {
         .then((data) => {
             const filteredData = filterNewsData(data, keyword);
             setNewsData(filteredData);
-            console.log(filteredData);
         })
         .finally(() => {
             setIsLoading(false)
@@ -77,14 +79,15 @@ function App() {
             return;
         }
 
-        handleIsLoading();
+        setIsLoggedInLoading(true);
         login(email, password)
         .then((data) => {
             if (data.token) {
                 checkToken(data.token)
                 .then((userData) => {
+                    console.log(userData);
                     setCurrentUser({
-                        name: userData.data.name,
+                        name: userData.data.username,
                         email: userData.data.email,
                         id: userData.data.id,
                     });
@@ -111,14 +114,15 @@ function App() {
 
     const handleRegistration = ({ email, password, username }) => {
         if(password){
-            handleIsLoading();
+            setIsLoggedInLoading(true);
             register(email, password, username)
             .then((data) => {
                 if (data.token) {
                     checkToken(data.token)
                     .then((userData) => {
+                        console.log(userData);
                         setCurrentUser({
-                            name: userData.data.name,
+                            name: userData.data.username,
                             email: userData.data.email,
                             id: userData.data.id,
                         });
@@ -136,8 +140,8 @@ function App() {
                 }
                 setIsLoggedIn(true);
                 localStorage.setItem('token', data.token);
-                navigate("/");
                 closeActiveModal();
+                handleModalOpen("register-complete");
             })
             .catch(console.error)
             .finally(() => setIsLoading(false));
@@ -151,6 +155,33 @@ function App() {
         if(location.pathname === "/saved-news") {
             navigate("/");
         }
+    }
+
+
+    // Save/Unsave Articles Functionality
+
+    const handleSaveArticle = (article) => {
+        if(!isLoggedIn){
+            return
+        }
+
+        const apiCall = isArticleSaved(article.id) ? unsaveArticle : saveArticle;
+
+        apiCall(article)
+        .then((updatedArticle => {
+            setSavedArticles((prev) => {
+                if(isArticleSaved(article.id)){
+                    return prev.filter((saved) => saved.id !== article.id);
+                } else {
+                    return [...prev, updatedArticle];
+                }
+            });
+        }))
+        .catch((error) => console.error("Save/Unsave Article Error:", error));
+    }
+
+    const isArticleSaved = (articleId) => {
+        return savedArticles.some((saved) => saved.id === articleId);
     }
 
 
@@ -210,17 +241,17 @@ function App() {
             <div className="page__wrapper">
                 <div className="page">
                     <div className="page__content">
-                        <Header handleModalOpen={handleModalOpen} handleSearch={handleSearch} handleLogout={handleLogout}/>
+                        <Header handleModalOpen={handleModalOpen} handleSearch={handleSearch} handleLogout={handleLogout} savedArticles={savedArticles}/>
                         <Routes>
                             <Route
                                 path='/'
-                                element={<Main newsData={newsData} visibleCards={visibleCards} handleShowMoreCards={handleShowMoreCards}/>}
+                                element={<Main newsData={newsData} visibleCards={visibleCards} handleShowMoreCards={handleShowMoreCards} handleSaveArticle={handleSaveArticle} isArticleSaved={isArticleSaved}/>}
                             />
                             <Route
                                 path='/saved-news'
                                 element={
                                     <ProtectedRoute>
-                                        <SavedArticles newsData={newsData} />
+                                        <SavedArticles handleSaveArticle={handleSaveArticle} isArticleSaved={isArticleSaved} savedArticles={savedArticles}/>
                                     </ProtectedRoute>
                                 }
                             />
@@ -242,6 +273,7 @@ function App() {
             </div>
             {activeModal === "login" && <LoginModal activeModal={activeModal} closeActiveModal={closeActiveModal} handleOutsideClick={handleOutsideClick} handleModalOpen={handleModalOpen} handleLogin={handleLogin}/>}
             {activeModal === "signup" && <RegisterModal activeModal={activeModal} closeActiveModal={closeActiveModal} handleOutsideClick={handleOutsideClick} handleModalOpen={handleModalOpen} handleRegistration={handleRegistration}/>}
+            {activeModal === "register-complete" && <RegisterSuccessModal activeModal={activeModal} closeActiveModal={closeActiveModal} handleOutsideClick={handleOutsideClick} handleModalOpen={handleModalOpen} />}
         </CurrentUserContext.Provider>
     )
 }

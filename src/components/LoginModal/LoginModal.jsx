@@ -6,7 +6,7 @@ import { useFormAndValidation } from "../../hooks/useFormAndValidation";
 import "./LoginModal.css";
 
 function LoginModal({ activeModal, closeActiveModal, handleOutsideClick, handleModalOpen, handleLogin }) {
-    const { isLoading } = useContext(CurrentUserContext);
+    const { isLoggedInLoading } = useContext(CurrentUserContext);
     const {values, handleChange, errors, isValid, resetForm} = useFormAndValidation()
 
     const handleSubmit = (e) => {
@@ -25,7 +25,7 @@ function LoginModal({ activeModal, closeActiveModal, handleOutsideClick, handleM
     return (
         <ModalWithForm
             title="Sign in"
-            buttonText={isLoading ? "Loading..." : "Sign in"}
+            buttonText={isLoggedInLoading ? "Loading..." : "Sign in"}
             activeModal={activeModal}
             closeActiveModal={closeActiveModal}
             handleOutsideClick={handleOutsideClick}

@@ -1,20 +1,20 @@
 export const register = (email, password, username) => {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     setTimeout(() => {
       resolve({
         token: "fake-jwt-token",
-        user: { email, username },
+        user: { email, username, password, id: "12345" },
       });
     }, 1000);
   });
 };
 
 export const login = (email, password) => {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     setTimeout(() => {
       resolve({
         token: "fake-jwt-token",
-        user: { email, username: "John Doe", id: "12345" },
+        user: { email, username: "Brian Doe", password, id: "12345" },
       });
     }, 1000);
   });
@@ -26,12 +26,16 @@ export const logout = () => {
 
 export const checkToken = (token) => {
   return new Promise((resolve, reject) => {
-    resolve({
-      data: {
-        name: "John Doe",
-        email: "john-doe@gmail.com",
-        id: "12345",
-      },
-    });
+    if (token === "fake-jwt-token") {
+      resolve({
+        data: {
+          email: "john-doe@gmail.com",
+          username: "John Doe",
+          id: "12345",
+        },
+      });
+    } else {
+      reject(new Error("Invalid token"));
+    }
   });
 };
