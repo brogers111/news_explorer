@@ -21,6 +21,10 @@ View the Figma for this project [here.](https://www.figma.com/design/3ottwMEhlBt
 - Promises
 - News Explorer API
 
+## Deployment
+
+To view this project on gh-pages [click here.](https://brogers111.github.io/news_explorer/)
+
 ## Future Improvements
 
 - Login/Logout Functionality
