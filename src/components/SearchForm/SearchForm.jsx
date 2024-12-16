@@ -3,11 +3,17 @@ import './SearchForm.css';
 
 function SearchForm({ handleSearch }) {
     const [keyword, setKeyword] = useState("");
+    const [error, setError] = useState("");
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        handleSearch(keyword);
-    }
+        if (!keyword.trim()) {
+            setError("Please enter a keyword");
+        } else {
+            setError("");
+            handleSearch(keyword);
+        }
+    };
 
     return (
         <div className="form">
@@ -16,16 +22,17 @@ function SearchForm({ handleSearch }) {
             <form className="form__search" onSubmit={handleSubmit}>
                 <input
                     type="text"
-                    name='keyword'
-                    className='form__input'
-                    placeholder='Enter topic'
+                    name="keyword"
+                    className="form__input"
+                    placeholder="Enter topic"
                     value={keyword}
                     onChange={(e) => setKeyword(e.target.value)}
                 />
                 <button type="submit" className="form__submit-button">Search</button>
+                {error && <div className="form__error">{error}</div>}
             </form>
         </div>
-    )
+    );
 }
 
-export default SearchForm
+export default SearchForm;
