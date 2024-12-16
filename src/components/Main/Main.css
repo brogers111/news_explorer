@@ -40,3 +40,42 @@
 .cards__show-more-button:hover{
     background-color: rgba(232, 232, 232, 1);
 }
+
+@media (max-width:768px) {
+    .cards{
+        padding: 40px;
+    }
+    
+    .cards__header{
+        font-size: 30px;
+        padding: 0 0 32px;
+    }
+
+    .cards__list{
+        gap: 8px;
+    }
+
+    .cards__show-more-button{
+        margin: 32px auto 0;
+        padding: 16px 74px;
+    }
+}
+
+@media (max-width: 320px) {
+    .cards{
+        padding: 32px 16px 24px;
+    }
+
+    .cards__header{
+        padding: 0 0 58px;
+    }
+
+    .cards__list{
+        gap: 10px;
+    }
+
+    .cards__show-more-button{
+        padding: 16px 98px;
+        margin: 21px auto 0;
+    }
+}

@@ -4,7 +4,7 @@
     justify-content: space-between;
     background-color: rgba(196, 196, 196, 0.01);
     border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-    width: 1440px;
+    max-width: 1440px;
 }
 
 .nav__logo-link{
@@ -129,4 +129,47 @@
 .nav_dark .nav__user-button{
     border: 1px solid rgba(26, 27, 34, 1);
     color: rgba(26, 27, 34, 1);
+}
+
+.nav__hamburger-menu{
+    display: none;
+}
+
+
+@media (max-width: 768px){
+    .nav__logo{
+        padding: 23px 0 18px 40px;
+    }
+
+    .nav__links{
+        font-size: 16px;
+        gap: 24px;
+        padding-right: 40px;
+    }
+
+    .nav__home-button{
+        padding: 23px 0 18px;
+    }
+
+    .nav__signin-button{
+        width: 150px;
+        height: 38px;
+    }
+}
+
+@media (max-width: 320px){
+    .nav__logo{
+        font-size: 16px;
+        padding: 16px;
+    }
+    .nav__links{
+        display: none;
+    }
+
+    .nav__hamburger-menu{
+        all: unset;
+        height: 24px;
+        width: 24px;
+        padding: 16px;
+    }
 }

@@ -32,3 +32,52 @@
     padding: 24px 0 0;
     color: rgba(26, 27, 34, 1);
 }
+
+@media (max-width: 768px) {
+    .about{
+        gap: 32px;
+        padding: 0 40px;
+    }
+
+    .about__image{
+        height: 232px;
+        width: 232px;
+        padding: 61px 0;
+    }
+
+    .about__details{
+        width: 100%;
+        padding: 40px 0 0;
+    }
+
+    .about__title{
+        font-size: 30px;
+    }
+
+    .about__desc{
+        padding: 16px 0 61px;
+    }
+}
+
+@media (max-width: 320px) {
+    .about{
+        flex-direction: column;
+        gap: 0;
+        padding: 0;
+    }
+
+    .about__image{
+        height: 272px;
+        width: 272px;
+        padding: 32px 24px 24px;
+    }
+
+    .about__details{
+        width: 288px;
+        padding: 0 16px;
+    }
+
+    .about__desc{
+        padding: 16px 0 128px;
+    }
+}

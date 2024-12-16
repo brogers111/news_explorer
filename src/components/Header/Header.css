@@ -35,3 +35,35 @@
     line-height: 1.2;
     color: rgba(26, 27, 34, 1);
 }
+
+@media (max-width: 768px) {
+    .header__saved-news{
+        padding: 24px 40px 32px;
+    }
+
+    .header__title{
+        margin: 0 0 16px;
+        font-size: 14px;
+    }
+
+    .header__desc{
+        margin: 0 0 16px;
+        font-size: 30px;
+        width: 336px;
+    }
+}
+
+@media (max-width: 320px) {
+    .header__saved-news{
+        padding: 8px 16px 32px;
+    }
+
+    .header__title{
+        font-size: 12px;
+    }
+
+    .header__desc{
+        margin: 0 0 50px;
+        width: 288px;
+    }
+}
