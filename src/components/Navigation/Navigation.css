@@ -158,18 +158,19 @@
 }
 
 @media (max-width: 320px){
-    .nav__logo{
-        font-size: 16px;
-        padding: 16px;
-    }
-    .nav__links{
-        display: none;
-    }
+        .nav__logo{
+            font-size: 16px;
+            padding: 16px;
+        }
 
-    .nav__hamburger-menu{
-        all: unset;
-        height: 24px;
-        width: 24px;
-        padding: 16px;
-    }
+        .nav__links{
+            display: none;
+        }
+
+        .nav__hamburger-menu{
+            all: unset;
+            height: 24px;
+            width: 24px;
+            padding: 16px;
+        }
 }

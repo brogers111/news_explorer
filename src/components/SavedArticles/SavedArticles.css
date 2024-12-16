@@ -8,3 +8,9 @@
         padding: 32px 40px;
     }
 }
+
+@media (max-width: 320px) {
+    .saved-articles{
+        padding: 24px 16px 12px;
+    }
+}

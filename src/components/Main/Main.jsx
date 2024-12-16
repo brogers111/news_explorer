@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect } from "react";
+import { useContext } from "react";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 
 import About from '../About/About';
@@ -8,15 +8,8 @@ import NotFound from '../NotFound/Notfound';
 
 import './Main.css';
 
-function Main({ newsData, visibleCards, handleShowMoreCards, handleSaveArticle, isArticleSaved }) {
+function Main({ newsData, visibleCards, handleShowMoreCards, handleSaveArticle, isArticleSaved, hasSearched }) {
     const { isLoading } = useContext(CurrentUserContext);
-    const [hasSearched, setHasSearched] = useState(false);
-
-    useEffect(() => {
-        if (newsData.length > 0) {
-            setHasSearched(true);
-        }
-    }, [newsData]);
 
     return (
         <main>

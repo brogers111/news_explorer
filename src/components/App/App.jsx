@@ -7,6 +7,7 @@ import Main from '../Main/Main';
 import Footer from '../Footer/Footer';
 import LoginModal from '../LoginModal/LoginModal';
 import RegisterModal from '../RegisterModal/RegisterModal';
+import MobileMenuModal from '../MobileMenuModal/MobileMenuModal';
 import RegisterSuccessModal from '../RegisterSuccessModal/RegisterSuccessModal';
 import SavedArticles from '../SavedArticles/SavedArticles';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
@@ -27,6 +28,7 @@ function App() {
     const [currentUser, setCurrentUser] = useState({});
     const [isLoggedInLoading, setIsLoggedInLoading] = useState(true);
     const [visibleCards, setVisibleCards] = useState(3);
+    const [hasSearched, setHasSearched] = useState(false);
 
     const location = useLocation();
     const navigate = useNavigate();
@@ -57,13 +59,14 @@ function App() {
 
     const handleSearch = (keyword) => {
         handleIsLoading();
+        setHasSearched(true);
         getNews({searchQuery: keyword})
         .then((data) => {
             const filteredData = filterNewsData(data, keyword);
             setNewsData(filteredData);
         })
         .finally(() => {
-            setIsLoading(false)
+            setIsLoading(false);
         });
     };
 
@@ -122,9 +125,13 @@ function App() {
     };
 
     const handleLogout = () => {
+        closeActiveModal();
         logout();
         setIsLoggedIn(false);
         setCurrentUser({});
+        setNewsData([]);
+        setSavedArticles([]);
+        setHasSearched(false);
         if(location.pathname === "/saved-news") {
             navigate("/");
         }
@@ -219,7 +226,7 @@ function App() {
                         <Routes>
                             <Route
                                 path='/'
-                                element={<Main newsData={newsData} visibleCards={visibleCards} handleShowMoreCards={handleShowMoreCards} handleSaveArticle={handleSaveArticle} isArticleSaved={isArticleSaved}/>}
+                                element={<Main newsData={newsData} visibleCards={visibleCards} handleShowMoreCards={handleShowMoreCards} handleSaveArticle={handleSaveArticle} isArticleSaved={isArticleSaved} hasSearched={hasSearched}/>}
                             />
                             <Route
                                 path='/saved-news'
@@ -241,6 +248,7 @@ function App() {
             {activeModal === "login" && <LoginModal activeModal={activeModal} closeActiveModal={closeActiveModal} handleOutsideClick={handleOutsideClick} handleModalOpen={handleModalOpen} handleLogin={handleLogin}/>}
             {activeModal === "signup" && <RegisterModal activeModal={activeModal} closeActiveModal={closeActiveModal} handleOutsideClick={handleOutsideClick} handleModalOpen={handleModalOpen} handleRegistration={handleRegistration}/>}
             {activeModal === "register-complete" && <RegisterSuccessModal activeModal={activeModal} closeActiveModal={closeActiveModal} handleOutsideClick={handleOutsideClick} handleModalOpen={handleModalOpen} />}
+            {activeModal === "mobile-menu" && <MobileMenuModal activeModal={activeModal} closeActiveModal={closeActiveModal} handleOutsideClick={handleOutsideClick} handleModalOpen={handleModalOpen} handleLogout={handleLogout}/>}
         </CurrentUserContext.Provider>
     )
 }

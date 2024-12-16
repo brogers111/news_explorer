@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { useState, useContext } from "react";
+import { useContext } from "react";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 
 import lightLogoutButton from "../../assets/logout-icon-light.svg";
@@ -10,11 +10,12 @@ import './Navigation.css';
 
 function Navigation({ handleModalOpen, handleLogout }) {
     const { currentUser, isLoggedIn, identifyLocation } = useContext(CurrentUserContext);
-    const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     const currentUserFirstName = currentUser?.name ? currentUser.name.split(" ")[0] : "";
 
-    const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+    const handleMobileMenu = () => {
+        handleModalOpen("mobile-menu");
+    }
 
     return(
         <nav className={`nav ${identifyLocation === "/saved-news" ? "nav_dark" : ""}`}>
@@ -23,7 +24,6 @@ function Navigation({ handleModalOpen, handleLogout }) {
                     <span className="nav__logo-text">NewsExplorer</span>
                 </p>
             </Link>
-            <div className="nav__links-container">
                 {isLoggedIn ? (
                     <>
                         <div className="nav__links">
@@ -46,10 +46,9 @@ function Navigation({ handleModalOpen, handleLogout }) {
                         </div>
                     </>
                 )}
-                <button className="nav__hamburger-menu" onClick={toggleMenu}>
-                    <img src={identifyLocation === "/saved-news" ? darkHamburgerIcon : lightHamburgerIcon} alt="menu" />
+                <button className="nav__hamburger-menu" onClick={handleMobileMenu}>
+                        <img src={identifyLocation === "/saved-news" ? darkHamburgerIcon : lightHamburgerIcon} alt="menu" />
                 </button>
-            </div>
         </nav>
     )
 }
