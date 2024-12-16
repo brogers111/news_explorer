@@ -25,7 +25,7 @@ function App() {
     const [isLoading, setIsLoading] = useState(false);
     const [identifyLocation, setIdentifyLocation] = useState();
     const [currentUser, setCurrentUser] = useState({});
-    const [isLoggedInLoading, setIsLoggedInLoading] = useState(false);
+    const [isLoggedInLoading, setIsLoggedInLoading] = useState(true);
     const [visibleCards, setVisibleCards] = useState(3);
 
     const location = useLocation();
@@ -75,9 +75,7 @@ function App() {
     // Login/Logout & Register Functionality
 
     const handleLogin = ({ email, password }) => {
-        if (!email || !password){
-            return;
-        }
+        if (!email || !password) return;
 
         setIsLoggedInLoading(true);
         login(email, password)
@@ -85,13 +83,15 @@ function App() {
             if (data.token) {
                 checkToken(data.token)
                 .then((userData) => {
-                    console.log(userData);
                     setCurrentUser({
                         name: userData.data.username,
                         email: userData.data.email,
                         id: userData.data.id,
                     });
                     setIsLoggedIn(true);
+                    localStorage.setItem('token', data.token);
+                    navigate(location.state?.from?.pathname || "/");
+                    closeActiveModal();
                 })
                 .catch((error) => {
                     console.error("Token validation failed:", error);
@@ -103,10 +103,6 @@ function App() {
             } else {
                 setIsLoggedInLoading(false);
             }
-            setIsLoggedIn(true);
-            localStorage.setItem('token', data.token);
-            navigate("/");
-            closeActiveModal();
         })
         .catch(console.error)
         .finally(() => setIsLoading(false));
@@ -116,35 +112,12 @@ function App() {
         if(password){
             setIsLoggedInLoading(true);
             register(email, password, username)
-            .then((data) => {
-                if (data.token) {
-                    checkToken(data.token)
-                    .then((userData) => {
-                        console.log(userData);
-                        setCurrentUser({
-                            name: userData.data.username,
-                            email: userData.data.email,
-                            id: userData.data.id,
-                        });
-                        setIsLoggedIn(true);
-                    })
-                    .catch((error) => {
-                        console.error("Token validation failed:", error);
-                        setIsLoggedIn(false);
-                    })
-                    .finally(() => {
-                        setIsLoggedInLoading(false);
-                    });
-                } else {
-                    setIsLoggedInLoading(false);
-                }
-                setIsLoggedIn(true);
-                localStorage.setItem('token', data.token);
+            .then(() => {
                 closeActiveModal();
                 handleModalOpen("register-complete");
             })
             .catch(console.error)
-            .finally(() => setIsLoading(false));
+            .finally(() => setIsLoggedInLoading(false));
         }
     };
 
@@ -217,7 +190,7 @@ function App() {
             checkToken(token)
             .then((userData) => {
                 setCurrentUser({
-                    name: userData.data.name,
+                    name: userData.data.username,
                     email: userData.data.email,
                     id: userData.data.id,
                 });
@@ -231,6 +204,7 @@ function App() {
                 setIsLoggedInLoading(false);
             });
         } else {
+            setIsLoggedIn(false);
             setIsLoggedInLoading(false);
         }
     }, []);
@@ -256,16 +230,9 @@ function App() {
                                 }
                             />
                             <Route
-                                path='*'
-                                element={
-                                    isLoggedIn ? (
-                                        <Navigate to="/saved-news" replace />
-                                    ) : (
-                                        <Navigate to="/" replace />
-                                    )
-                                }
-                            >
-                            </Route>
+                                path="*"
+                                element={<Navigate to="/" replace />}
+                            />
                         </Routes>
                     </div>
                     <Footer />

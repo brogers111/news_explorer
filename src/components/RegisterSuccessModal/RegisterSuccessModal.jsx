@@ -3,7 +3,8 @@ import "./RegisterSuccessModal.css";
 
 function RegisterSuccessModal({ activeModal, closeActiveModal, handleOutsideClick, handleModalOpen }) {
 
-    const handleLoginModalOpen = () => {
+    const handleLoginModalOpen = (e) => {
+        e.preventDefault();
         handleModalOpen("login");
     }
 
