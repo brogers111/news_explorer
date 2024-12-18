@@ -195,7 +195,7 @@
     width: 100%;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
     .card{
         width: 224px;
     }
@@ -249,7 +249,7 @@
     }
 }
 
-@media (max-width:320px) {
+@media (max-width: 536px) {
     .card{
         width: 288px;
     }

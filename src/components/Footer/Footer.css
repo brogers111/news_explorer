@@ -12,43 +12,60 @@
     font-size: 16px;
 }
 
-.footer__links{
+.footer__nav{
     display: flex;
     align-items: center;
 }
 
-.footer__home-link{
+.footer__nav-links{
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer__site-links{
+    display: flex;
+}
+
+.footer__item{
+    margin: 0;
+}
+
+.footer__link_type_home{
     all: unset;
     color: rgba(26, 27, 34, 1);
     cursor: pointer;
 }
 
-.footer__tripleten-link{
+.footer__link_type_tripleten{
     all: unset;
     margin-left: 40px;
     color: rgba(26, 27, 34, 1);
     cursor: pointer;
 }
 
-.footer__navigation-links{
+.footer__social-links{
     display: flex;
 }
 
-.footer__github-link{
+.footer__link_type_github{
     all: unset;
     background: center / cover no-repeat url(../../assets/github-icon.svg);
     height: 24px;
     width: 24px;
     margin-left: 40px;
+    display: inline-block;
     cursor: pointer;
 }
 
-.footer__facebook-link{
+.footer__link_type_facebook{
     all: unset;
     background: center / cover no-repeat url(../../assets/facebook-icon.svg);
     height: 24px;
     width: 24px;
     margin-left: 24px;
+    display: inline-block;
     cursor: pointer;
 }
 
@@ -58,7 +75,7 @@
     }
 }
 
-@media (max-width: 320px) {
+@media (max-width: 675px) {
     .footer{
         display: flex;
         flex-direction: column-reverse;
@@ -69,25 +86,26 @@
         padding-top: 38px;
     }
 
-    .footer__links{
+    .footer__nav{
+        width: 100%;
+    }
+
+    .footer__nav-links{
         width: 100%;
         justify-content: space-between;
-        align-items: flex-start;
     }
 
-    .footer__home-link{
-        margin-bottom: 24px;
-    }
-    
-    .footer__tripleten-link{
-        margin: 0;
-    }
-
-    .footer__navigation-links{
+    .footer__site-links{
         flex-direction: column;
     }
 
-    .footer__github-link{
-        margin-left: auto;
+    .footer__link_type_home{
+        display: block;
+        margin-bottom: 24px;
+    }
+    
+    .footer__link_type_tripleten{
+        padding-top: 20px;
+        margin: 0;
     }
 }
