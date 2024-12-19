@@ -1,5 +1,5 @@
 import './About.css';
-import headshot from "../../assets/headshot.jpeg";
+import headshot from "../../assets/headshot.jpg";
 
 function About() {
     return (
