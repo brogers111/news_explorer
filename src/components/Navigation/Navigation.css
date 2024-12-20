@@ -1,0 +1,176 @@
+/* Home Styling */
+.nav{
+    display: flex;
+    justify-content: space-between;
+    background-color: rgba(196, 196, 196, 0.01);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    max-width: 1440px;
+}
+
+.nav__logo-link{
+    text-decoration: none;
+}
+
+.nav__logo{
+    font-family: "Roboto-Slab", Arial, sans-serif;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 1.2;
+    color: rgba(255, 255, 255, 1);
+    text-decoration: none;
+    margin: 0;
+    padding: 30px 0 26px 104px;
+    cursor: default;
+}
+
+.nav__logo-text{
+    cursor: pointer;
+}
+
+.nav__links a{
+    text-decoration: none;
+    color: inherit;
+}
+
+.nav__links a:visited{
+    text-decoration: none;
+    color: inherit;
+}
+
+.nav__links{
+    display: flex;
+    align-items: center;
+    gap: 56px;
+    text-decoration: none;
+    margin: 0;
+    padding: 0 104px 0 0;
+    font-size: 18px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 1);
+}
+
+.nav__home-button{
+    all: unset;
+    color: rgba(255, 255, 255, 1);
+    padding: 30px 10px 23px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.nav__articles-button{
+    all: unset;
+    padding: 30px 10px 23px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255, 255, 255, 1);
+    cursor: pointer;
+}
+
+.nav__user-button{
+    all: unset;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    padding: 0 19px;
+    height: 48px;
+    border: 1px solid rgba(255, 255, 255, 1);
+    border-radius: 100px;
+    cursor: pointer;
+}
+
+.nav__logout-icon{
+    height: 16px;
+    width: 17.4px;
+}
+
+.nav__signin-button{
+    all: unset;
+    width: 176px;
+    height: 48px;
+    border: 1px solid rgba(255, 255, 255, 1);
+    border-radius: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.selected{
+    border-bottom: 3px solid rgba(255, 255, 255, 1);
+}
+
+/* Saved Articles Styling */
+.nav_dark{
+    background: transparent;
+    border-bottom: 1px solid rgba(209, 210, 214, 1);
+}
+
+.nav_dark .nav__logo{
+    color: rgba(26, 27, 34, 1);
+}
+
+.nav_dark .nav__home-button,
+.nav_dark .nav__articles-button,
+.nav_dark .nav__user-button
+.nav_dark .nav__links{
+    text-decoration: none;
+    color: rgba(26, 27, 34, 1);
+}
+
+.nav_dark .selected{
+    background: transparent;
+    border-bottom: 3px solid rgba(26, 27, 34, 1);
+}
+
+.nav_dark .nav__user-button{
+    border: 1px solid rgba(26, 27, 34, 1);
+    color: rgba(26, 27, 34, 1);
+}
+
+.nav__hamburger-menu{
+    display: none;
+}
+
+
+@media (max-width: 768px){
+    .nav__logo{
+        padding: 23px 0 18px 40px;
+    }
+
+    .nav__links{
+        font-size: 16px;
+        gap: 24px;
+        padding-right: 40px;
+    }
+
+    .nav__home-button{
+        padding: 23px 0 18px;
+    }
+
+    .nav__signin-button{
+        width: 150px;
+        height: 38px;
+    }
+}
+
+@media (max-width: 536px){
+        .nav__logo{
+            font-size: 16px;
+            padding: 16px;
+        }
+
+        .nav__links{
+            display: none;
+        }
+
+        .nav__hamburger-menu{
+            all: unset;
+            height: 24px;
+            width: 24px;
+            padding: 16px;
+        }
+}

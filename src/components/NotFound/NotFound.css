@@ -1,0 +1,18 @@
+.not-found{
+    background-color: rgba(245, 246, 247, 1);
+    padding: 80px 0;
+}
+
+.not-found__image{
+    margin: 0 auto;
+    background-image: url("../../assets/nothing-found.svg");
+    height: 82px;
+    width: 82px;
+}
+
+.not-found__text{
+    margin: 0;
+    text-align: center;
+    padding-top: 24px;
+    color: rgba(182, 188, 191, 1);
+}
