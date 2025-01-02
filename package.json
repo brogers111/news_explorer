@@ -1,6 +1,6 @@
 {
   "name": "news_explorer",
-  "homepage": "https://brogers111.github.io/news_explorer",
+  "homepage": "/news_explorer",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -13,6 +13,7 @@
     "deploy": "gh-pages -d dist"
   },
   "dependencies": {
+    "dotenv": "^16.4.7",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router-dom": "^7.0.2"

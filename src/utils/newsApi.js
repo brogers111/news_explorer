@@ -1,5 +1,5 @@
 import { checkResponse } from "./api";
-import { NEWS_API_KEY, NEWS_API_URL } from "./constants";
+import { NEWS_API_KEY } from "./constants";
 
 export const getNews = ({
   searchQuery,
@@ -8,12 +8,11 @@ export const getNews = ({
   sortBy = "publishedAt",
 }) => {
   const toDate = new Date().toISOString().split("T")[0];
-
   const fromDate = new Date();
   fromDate.setDate(fromDate.getDate() - 7);
   const fromDateStr = fromDate.toISOString().split("T")[0];
 
-  const url = `${NEWS_API_URL}?q=${searchQuery}&language=${language}&pageSize=${pageSize}&from=${fromDateStr}&to=${toDate}&sortBy=${sortBy}&apiKey=${NEWS_API_KEY}`;
+  const url = `https://newsapi.org/v2/everything?q=${searchQuery}&language=${language}&pageSize=${pageSize}&from=${fromDateStr}&to=${toDate}&sortBy=${sortBy}&apiKey=${NEWS_API_KEY}`;
   return processServerRequest(url);
 };
 
@@ -36,12 +35,14 @@ export const filterNewsData = (data, keyword) => {
     })
     .map((article) => {
       const filteredArticle = {};
+      console.log(article);
       filteredArticle.id = article.url;
       filteredArticle.keyword = formattedKeyword;
-      filteredArticle.date = formatDate(article.publishedAt);
       filteredArticle.title = article.title;
-      filteredArticle.description = article.description;
+      filteredArticle.text = article.description;
+      filteredArticle.date = formatDate(article.publishedAt);
       filteredArticle.source = article.source.name;
+      filteredArticle.link = article.url;
       filteredArticle.image = article.urlToImage;
 
       return filteredArticle;
