@@ -1,6 +1,5 @@
 import { useState, useCallback, useEffect } from 'react';
 import { Routes, Route, Navigate, useNavigate, useLocation } from 'react-router-dom';
-import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 
 import Header from '../Header/Header';
 import Main from '../Main/Main';
@@ -11,10 +10,11 @@ import MobileMenuModal from '../MobileMenuModal/MobileMenuModal';
 import RegisterSuccessModal from '../RegisterSuccessModal/RegisterSuccessModal';
 import SavedArticles from '../SavedArticles/SavedArticles';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
-import { saveArticle, unsaveArticle } from '../../utils/api';
+import { getSavedArticles, saveArticle, unsaveArticle } from '../../utils/api';
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 
 import { getNews, filterNewsData } from '../../utils/newsApi';
-import { register, login, checkToken, logout } from '../../utils/auth';
+import { register, login, checkToken } from '../../utils/auth';
 
 import './App.css';
 
@@ -50,15 +50,11 @@ function App() {
         }
     };
 
-    const handleIsLoading = () => {
-        setIsLoading(true);
-    };
-
 
     // Search & Card Functionality
 
     const handleSearch = (keyword) => {
-        handleIsLoading();
+        setIsLoading(true);
         getNews({searchQuery: keyword})
         .then((data) => {
             const filteredData = filterNewsData(data, keyword);
@@ -81,6 +77,10 @@ function App() {
 
     // Login/Logout & Register Functionality
 
+    function getToken(){
+        return localStorage.getItem("token");
+    }
+
     const handleLogin = ({ email, password }) => {
         if (!email || !password) return;
 
@@ -91,12 +91,11 @@ function App() {
                 checkToken(data.token)
                 .then((userData) => {
                     setCurrentUser({
-                        name: userData.data.username,
-                        email: userData.data.email,
-                        id: userData.data.id,
+                        name: userData.name,
+                        email: userData.email,
+                        id: userData._id,
                     });
                     setIsLoggedIn(true);
-                    localStorage.setItem('token', data.token);
                     navigate(location.state?.from?.pathname || "/");
                     closeActiveModal();
                 })
@@ -115,10 +114,10 @@ function App() {
         .finally(() => setIsLoading(false));
     };
 
-    const handleRegistration = ({ email, password, username }) => {
+    const handleRegistration = ({ email, password, name }) => {
         if(password){
             setIsLoggedInLoading(true);
-            register(email, password, username)
+            register(email, password, name)
             .then(() => {
                 closeActiveModal();
                 handleModalOpen("register-complete");
@@ -130,7 +129,7 @@ function App() {
 
     const handleLogout = () => {
         closeActiveModal();
-        logout();
+        localStorage.removeItem("token");
         setIsLoggedIn(false);
         setCurrentUser({});
         setNewsData([]);
@@ -141,31 +140,37 @@ function App() {
         }
     }
 
-
     // Save/Unsave Articles Functionality
 
     const handleSaveArticle = (article) => {
-        if(!isLoggedIn){
-            return
-        }
-
-        const apiCall = isArticleSaved(article.id) ? unsaveArticle : saveArticle;
-
-        apiCall(article)
-        .then((updatedArticle => {
-            setSavedArticles((prev) => {
-                if(isArticleSaved(article.id)){
-                    return prev.filter((saved) => saved.id !== article.id);
-                } else {
-                    return [...prev, updatedArticle];
-                }
-            });
-        }))
-        .catch((error) => console.error("Save/Unsave Article Error:", error));
+    if (!isLoggedIn) {
+        return;
     }
 
-    const isArticleSaved = (articleId) => {
-        return savedArticles.some((saved) => saved.id === articleId);
+    const token = getToken();
+
+    const toggleSaveArticle = isArticleSaved(article._id)
+        ? () => unsaveArticle(article._id, token)
+        : () => saveArticle(article.keyword, article.title, article.text, article.date, article.source, article.link, article.image, token);
+
+    setSavedArticles((prev) =>
+        isArticleSaved(article._id)
+        ? prev.filter((item) => item.id !== article._id)
+        : [...prev, article]
+    );
+
+    toggleSaveArticle().catch((error) => {
+        console.error("Save/Unsave Article Error:", error);
+        setSavedArticles((prev) =>
+        isArticleSaved(article._id)
+            ? [...prev, article]
+            : prev.filter((item) => item.id !== article._id)
+        );
+    });
+    };
+
+    const isArticleSaved = (article) => {
+        return savedArticles.some((saved) => saved.id === article);
     }
 
 
@@ -196,14 +201,32 @@ function App() {
     }, [newsData]);
 
     useEffect(() => {
-        const token = localStorage.getItem('token');
+        const token = getToken();
+        if (token) {
+            getSavedArticles(token)
+                .then((data) => {
+                    console.log(data);
+                    setSavedArticles(data);
+                })
+                .catch((error) => {
+                    if (error.message.includes("404")){
+                        return [];
+                    }
+                    console.error("Failed to fetch saved articles:", error);
+                    setSavedArticles([]);
+                });
+        }
+    }, []);
+    
+    useEffect(() => {
+        const token = getToken();
         if (token) {
             checkToken(token)
             .then((userData) => {
                 setCurrentUser({
-                    name: userData.data.username,
-                    email: userData.data.email,
-                    id: userData.data.id,
+                    name: userData.name,
+                    email: userData.email,
+                    id: userData._id,
                 });
                 setIsLoggedIn(true);
             })

@@ -23,7 +23,7 @@ function SavedArticles({ handleSaveArticle, isArticleSaved, savedArticles }) {
                 <section className="saved-articles">
                     <ul className="cards__list">
                         {sortedArticles.filter((article) => isArticleSaved(article.id)).map((article) => {
-                            return <NewsCard key={article.id} article={article} handleSaveArticle={handleSaveArticle} isArticleSaved={isArticleSaved}/>
+                            return <NewsCard key={article._id} article={article} handleSaveArticle={handleSaveArticle} isArticleSaved={isArticleSaved}/>
                         })}
                     </ul>
                 </section>

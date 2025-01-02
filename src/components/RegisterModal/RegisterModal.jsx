@@ -62,19 +62,19 @@ function RegisterModal({ activeModal, closeActiveModal, handleOutsideClick, hand
                 />
                 {errors.password && <span className="modal__error">{errors.password}</span>}
             </label>
-            <label htmlFor="username" className="modal__label">
+            <label htmlFor="name" className="modal__label">
                 Username
                 <input
                     type="text"
-                    name="username"
+                    name="name"
                     className="modal__input"
-                    id="username"
-                    placeholder="Enter your username"
-                    value={values.username || ""}
+                    id="name"
+                    placeholder="Enter your name"
+                    value={values.name || ""}
                     onChange={handleChange}
                     required
                 />
-                {errors.username && <span className="modal__error">{errors.username}</span>}
+                {errors.name && <span className="modal__error">{errors.name}</span>}
             </label>
         </ModalWithForm>
     );

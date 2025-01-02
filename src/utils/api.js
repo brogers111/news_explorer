@@ -1,27 +1,46 @@
+import { BASE_URL } from "./constants";
+
 export function checkResponse(res) {
   return res.ok
     ? res.json()
     : Promise.reject(`Error: ${res.status} ${res.statusText}`);
 }
 
-export function saveArticle(article) {
-  return new Promise((resolve) => {
-    resolve({
-      id: article.id || "65f7371e7bce9e7d331b11a0",
-      keyword: article.keyword,
-      date: article.date,
-      title: article.title,
-      image: article.image,
-      description: article.description,
-      source: article.source,
-    });
+function request(url, options) {
+  return fetch(url, options).then(checkResponse);
+}
+
+function getSavedArticles(token) {
+  return request(`${BASE_URL}/articles`, {
+    method: "GET",
+    headers: {
+      Accept: "application/json",
+      Authorization: `Bearer ${token}`,
+    },
   });
 }
 
-export function unsaveArticle(article) {
-  return new Promise((resolve) => {
-    resolve({
-      id: article.id,
-    });
+function saveArticle(keyword, title, text, date, source, link, image, token) {
+  return request(`${BASE_URL}/articles`, {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({ keyword, title, text, date, source, link, image }),
   });
 }
+
+function unsaveArticle(articleId, token) {
+  return request(`${BASE_URL}/items/${articleId}`, {
+    method: "DELETE",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+}
+
+export { getSavedArticles, saveArticle, unsaveArticle };
