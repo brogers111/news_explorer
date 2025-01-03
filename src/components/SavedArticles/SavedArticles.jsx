@@ -22,8 +22,7 @@ function SavedArticles({ handleSaveArticle, isArticleSaved, savedArticles }) {
             { savedArticles.length > 0 ? (
                 <section className="saved-articles">
                     <ul className="cards__list">
-                        {console.log(sortedArticles)}
-                        {sortedArticles.filter((article) => isArticleSaved(article._id)).map((article) => {
+                        {sortedArticles.filter((article) => isArticleSaved(article.link)).map((article) => {
                             return <NewsCard key={article._id} article={article} handleSaveArticle={handleSaveArticle} isArticleSaved={isArticleSaved}/>
                         })}
                     </ul>

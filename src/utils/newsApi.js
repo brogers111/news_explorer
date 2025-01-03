@@ -35,7 +35,6 @@ export const filterNewsData = (data, keyword) => {
     })
     .map((article) => {
       const filteredArticle = {};
-      filteredArticle._id = article.url;
       filteredArticle.keyword = formattedKeyword;
       filteredArticle.title = article.title;
       filteredArticle.text = article.description;

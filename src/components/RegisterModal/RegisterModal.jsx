@@ -5,7 +5,7 @@ import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import { useFormAndValidation } from "../../hooks/useFormAndValidation";
 import "./RegisterModal.css";
 
-function RegisterModal({ activeModal, closeActiveModal, handleOutsideClick, handleModalOpen, handleRegistration }) {
+function RegisterModal({ activeModal, closeActiveModal, handleOutsideClick, handleModalOpen, handleRegistration, authError }) {
     const { isLoggedInLoading } = useContext(CurrentUserContext);
     const {values, handleChange, errors, isValid, resetForm} = useFormAndValidation()
 
@@ -75,6 +75,7 @@ function RegisterModal({ activeModal, closeActiveModal, handleOutsideClick, hand
                     required
                 />
                 {errors.name && <span className="modal__error">{errors.name}</span>}
+                {authError && <p className="modal__error">{authError}</p>}
             </label>
         </ModalWithForm>
     );

@@ -24,7 +24,7 @@ function NewsCard({ article, handleSaveArticle, isArticleSaved }) {
                 <>
                     <div className="card__save-button-container">
                         { !isLoggedIn && <span className="card__hover-text">Sign in to save articles</span> }
-                        <button className={`card__save-button ${isArticleSaved(article._id) ? "card__save-button_active" : ""}`} onClick={handleSaveClick}></button>
+                        <button className={`card__save-button ${isArticleSaved(article.link) ? "card__save-button_active" : ""}`} onClick={handleSaveClick}></button>
                     </div>
                     <div className="card__content">
                         <img src={imageSource} alt="article-image" className="card__image" />

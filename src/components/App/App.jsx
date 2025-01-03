@@ -29,6 +29,7 @@ function App() {
     const [isLoggedInLoading, setIsLoggedInLoading] = useState(true);
     const [visibleCards, setVisibleCards] = useState(3);
     const [hasSearched, setHasSearched] = useState(false);
+    const [authError, setAuthError] = useState("");
 
     const location = useLocation();
     const navigate = useNavigate();
@@ -81,10 +82,15 @@ function App() {
         return localStorage.getItem("token");
     }
 
+    function formatName(name){
+        return name.charAt(0).toUpperCase()+name.slice(1);
+    }
+
     const handleLogin = ({ email, password }) => {
         if (!email || !password) return;
 
         setIsLoggedInLoading(true);
+        setAuthError("");
         login(email, password)
         .then((data) => {
             if (data.token) {
@@ -98,31 +104,32 @@ function App() {
                     setIsLoggedIn(true);
                     navigate(location.state?.from?.pathname || "/");
                     closeActiveModal();
-                })
-                .catch((error) => {
-                    console.error("Token validation failed:", error);
-                    setIsLoggedIn(false);
-                })
-                .finally(() => {
-                    setIsLoggedInLoading(false);
                 });
             } else {
-                setIsLoggedInLoading(false);
+                throw new Error("Invalid login response");
             }
         })
-        .catch(console.error)
-        .finally(() => setIsLoading(false));
+        .catch((error) => {
+            console.error("Login error:", error);
+            setAuthError(error.message || "An error ocurred during login.");
+        })
+        .finally(() => setIsLoggedInLoading(false));
     };
 
     const handleRegistration = ({ email, password, name }) => {
         if(password){
             setIsLoggedInLoading(true);
-            register(email, password, name)
+            setAuthError("");
+            const formattedName = formatName(name);
+            register(email, password, formattedName)
             .then(() => {
                 closeActiveModal();
                 handleModalOpen("register-complete");
             })
-            .catch(console.error)
+            .catch((error) => {
+                console.error("Signup error:", error);
+                setAuthError(error.message || "An error occurred during signup.");
+            })
             .finally(() => setIsLoggedInLoading(false));
         }
     };
@@ -145,12 +152,14 @@ function App() {
     const handleSaveArticle = (article) => {
         if (!isLoggedIn) return;
         const token = getToken();
-      
-        if (isArticleSaved(article._id)) {
-          unsaveArticle(article._id, token)
+        if (isArticleSaved(article.link)) {
+            const id = savedArticles.filter((a) => {
+                return a.link === article.link;
+              })[0]._id
+          unsaveArticle(id, token)
             .then(() => {
               setSavedArticles((prev) =>
-                prev.filter((item) => item._id !== article._id)
+                prev.filter((item) => item._id !== id)
               );
             })
             .catch((error) => console.error("Unsave error:", error));
@@ -172,8 +181,8 @@ function App() {
         }
       };      
 
-    const isArticleSaved = (articleId) => {
-        return savedArticles.some((saved) => saved._id === articleId);
+    const isArticleSaved = (link) => {
+        return savedArticles.some((saved) => saved.link === link);
     }
 
 
@@ -274,8 +283,8 @@ function App() {
                     <Footer />
                 </div>
             </div>
-            {activeModal === "login" && <LoginModal activeModal={activeModal} closeActiveModal={closeActiveModal} handleOutsideClick={handleOutsideClick} handleModalOpen={handleModalOpen} handleLogin={handleLogin}/>}
-            {activeModal === "signup" && <RegisterModal activeModal={activeModal} closeActiveModal={closeActiveModal} handleOutsideClick={handleOutsideClick} handleModalOpen={handleModalOpen} handleRegistration={handleRegistration}/>}
+            {activeModal === "login" && <LoginModal activeModal={activeModal} closeActiveModal={closeActiveModal} handleOutsideClick={handleOutsideClick} handleModalOpen={handleModalOpen} handleLogin={handleLogin} authError={authError}/>}
+            {activeModal === "signup" && <RegisterModal activeModal={activeModal} closeActiveModal={closeActiveModal} handleOutsideClick={handleOutsideClick} handleModalOpen={handleModalOpen} handleRegistration={handleRegistration} authError={authError}/>}
             {activeModal === "register-complete" && <RegisterSuccessModal activeModal={activeModal} closeActiveModal={closeActiveModal} handleOutsideClick={handleOutsideClick} handleModalOpen={handleModalOpen} />}
             {activeModal === "mobile-menu" && <MobileMenuModal activeModal={activeModal} closeActiveModal={closeActiveModal} handleOutsideClick={handleOutsideClick} handleModalOpen={handleModalOpen} handleLogout={handleLogout}/>}
         </CurrentUserContext.Provider>
