@@ -1,8 +1,9 @@
 import "./ModalWithForm.css";
 
-function ModalWithForm({ children, buttonText, title, activeModal, closeActiveModal, handleOutsideClick, onSubmit, isFormValid, secondaryButtonText, handleModalOpen }) {
+function ModalWithForm({ children, buttonText, title, activeModal, closeActiveModal, handleOutsideClick, onSubmit, isFormValid, secondaryButtonText, handleModalOpen, setAuthError }) {
     
     const handleSecondaryButtonClick = () => {
+        setAuthError("");
         if (activeModal === "signup") {
             handleModalOpen("login");
         } else if (activeModal === "login") {

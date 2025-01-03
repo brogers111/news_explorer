@@ -5,7 +5,7 @@ import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import { useFormAndValidation } from "../../hooks/useFormAndValidation";
 import "./RegisterModal.css";
 
-function RegisterModal({ activeModal, closeActiveModal, handleOutsideClick, handleModalOpen, handleRegistration, authError }) {
+function RegisterModal({ activeModal, closeActiveModal, handleOutsideClick, handleModalOpen, handleRegistration, authError, setAuthError }) {
     const { isLoggedInLoading } = useContext(CurrentUserContext);
     const {values, handleChange, errors, isValid, resetForm} = useFormAndValidation()
 
@@ -33,6 +33,7 @@ function RegisterModal({ activeModal, closeActiveModal, handleOutsideClick, hand
             onSubmit={handleSubmit}
             isFormValid={isValid}
             secondaryButtonText="Sign in"
+            setAuthError={setAuthError}
         >
             <label htmlFor="email" className="modal__label">
                 Email
@@ -75,7 +76,7 @@ function RegisterModal({ activeModal, closeActiveModal, handleOutsideClick, hand
                     required
                 />
                 {errors.name && <span className="modal__error">{errors.name}</span>}
-                {authError && <p className="modal__error">{authError}</p>}
+                {authError && <span className="modal__error"> {authError}</span>}
             </label>
         </ModalWithForm>
     );
