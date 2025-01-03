@@ -143,34 +143,37 @@ function App() {
     // Save/Unsave Articles Functionality
 
     const handleSaveArticle = (article) => {
-    if (!isLoggedIn) {
-        return;
-    }
+        if (!isLoggedIn) return;
+        const token = getToken();
+      
+        if (isArticleSaved(article._id)) {
+          unsaveArticle(article._id, token)
+            .then(() => {
+              setSavedArticles((prev) =>
+                prev.filter((item) => item._id !== article._id)
+              );
+            })
+            .catch((error) => console.error("Unsave error:", error));
+        } else {
+          saveArticle(
+            article.keyword,
+            article.title,
+            article.text,
+            article.date,
+            article.source,
+            article.link,
+            article.image,
+            token
+          )
+            .then((newArticle) => {
+              setSavedArticles((prev) => [...prev, newArticle]);
+            })
+            .catch((error) => console.error("Save error:", error));
+        }
+      };      
 
-    const token = getToken();
-
-    const toggleSaveArticle = isArticleSaved(article._id)
-        ? () => unsaveArticle(article._id, token)
-        : () => saveArticle(article.keyword, article.title, article.text, article.date, article.source, article.link, article.image, token);
-
-    setSavedArticles((prev) =>
-        isArticleSaved(article._id)
-        ? prev.filter((item) => item.id !== article._id)
-        : [...prev, article]
-    );
-
-    toggleSaveArticle().catch((error) => {
-        console.error("Save/Unsave Article Error:", error);
-        setSavedArticles((prev) =>
-        isArticleSaved(article._id)
-            ? [...prev, article]
-            : prev.filter((item) => item.id !== article._id)
-        );
-    });
-    };
-
-    const isArticleSaved = (article) => {
-        return savedArticles.some((saved) => saved.id === article);
+    const isArticleSaved = (articleId) => {
+        return savedArticles.some((saved) => saved._id === articleId);
     }
 
 
@@ -205,7 +208,6 @@ function App() {
         if (token) {
             getSavedArticles(token)
                 .then((data) => {
-                    console.log(data);
                     setSavedArticles(data);
                 })
                 .catch((error) => {

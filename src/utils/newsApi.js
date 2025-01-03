@@ -35,15 +35,14 @@ export const filterNewsData = (data, keyword) => {
     })
     .map((article) => {
       const filteredArticle = {};
-      console.log(article);
-      filteredArticle.id = article.url;
+      filteredArticle._id = article.url;
       filteredArticle.keyword = formattedKeyword;
       filteredArticle.title = article.title;
       filteredArticle.text = article.description;
       filteredArticle.date = formatDate(article.publishedAt);
       filteredArticle.source = article.source.name;
       filteredArticle.link = article.url;
-      filteredArticle.image = article.urlToImage;
+      filteredArticle.image = article.urlToImage || null;
 
       return filteredArticle;
     });

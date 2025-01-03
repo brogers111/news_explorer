@@ -21,6 +21,19 @@ function getSavedArticles(token) {
 }
 
 function saveArticle(keyword, title, text, date, source, link, image, token) {
+  const body = {
+    keyword,
+    title,
+    text,
+    date,
+    source,
+    link,
+  };
+
+  if (image) {
+    body.image = image;
+  }
+
   return request(`${BASE_URL}/articles`, {
     method: "POST",
     headers: {
@@ -28,12 +41,12 @@ function saveArticle(keyword, title, text, date, source, link, image, token) {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
-    body: JSON.stringify({ keyword, title, text, date, source, link, image }),
+    body: JSON.stringify(body),
   });
 }
 
 function unsaveArticle(articleId, token) {
-  return request(`${BASE_URL}/items/${articleId}`, {
+  return request(`${BASE_URL}/articles/${articleId}`, {
     method: "DELETE",
     headers: {
       Accept: "application/json",

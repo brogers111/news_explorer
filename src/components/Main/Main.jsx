@@ -24,8 +24,7 @@ function Main({ newsData, visibleCards, handleShowMoreCards, handleSaveArticle, 
                     <h2 className="cards__header">Search results</h2>
                     <ul className="cards__list">
                         {newsData.slice(0, visibleCards).map((article) => {
-                            console.log(article);
-                            return <NewsCard key={article.id} article={article} handleSaveArticle={handleSaveArticle} isArticleSaved={isArticleSaved} />
+                            return <NewsCard key={article._id} article={article} handleSaveArticle={handleSaveArticle} isArticleSaved={isArticleSaved} />
                         })}
                     </ul>
                     {visibleCards < newsData.length && (
