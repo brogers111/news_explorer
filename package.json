@@ -1,6 +1,6 @@
 {
   "name": "news_explorer",
-  "homepage": "/news_explorer",
+  "homepage": "https://news-explorer.root.sx",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -8,9 +8,7 @@
     "dev": "vite --open",
     "build": "vite build",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist"
+    "preview": "vite preview"
   },
   "dependencies": {
     "dotenv": "^16.4.7",
