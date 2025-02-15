@@ -19,12 +19,16 @@ View the Figma for this project [here.](https://www.figma.com/design/3ottwMEhlBt
 - Vite
 - ESLint
 - Promises
-- News Explorer API
+- News API
 
 ## Deployment
 
-To view this project on gh-pages [click here.](https://brogers111.github.io/news_explorer/)
+To view this final project click the [link here.](https://news-explorer.root.sx/)
+
+## Link to Backend Repo
+
+[Link to Express & NodeJS backend here.](https://github.com/brogers111/news_explorer_backend)
 
 ## Future Improvements
 
-- Build out Express Backend for User and Article Storage
+- Design custom View Article route to read articles without navigating to original article URL

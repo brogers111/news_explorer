@@ -12,7 +12,7 @@ export const getNews = ({
   fromDate.setDate(fromDate.getDate() - 7);
   const fromDateStr = fromDate.toISOString().split("T")[0];
 
-  const url = `https://newsapi.org/v2/everything?q=${searchQuery}&language=${language}&pageSize=${pageSize}&from=${fromDateStr}&to=${toDate}&sortBy=${sortBy}&apiKey=${NEWS_API_KEY}`;
+  const url = `https://nomoreparties.co/news/v2/everything?q=${searchQuery}&language=${language}&pageSize=${pageSize}&from=${fromDateStr}&to=${toDate}&sortBy=${sortBy}&apiKey=${NEWS_API_KEY}`;
   return processServerRequest(url);
 };
 

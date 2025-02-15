@@ -110,8 +110,7 @@ function App() {
             }
         })
         .catch((error) => {
-            console.error("Login error:", error);
-            setAuthError(error.message || "An error ocurred during login.");
+            setAuthError(error.validation?.body?.message || error.message || "An error ocurred during login.");
         })
         .finally(() => setIsLoggedInLoading(false));
     };
@@ -127,8 +126,7 @@ function App() {
                 handleModalOpen("register-complete");
             })
             .catch((error) => {
-                console.error("Signup error:", error);
-                setAuthError(error.message || "An error occurred during signup.");
+                setAuthError(error.validation?.body?.message || error.message || "An error occurred during signup.");
             })
             .finally(() => setIsLoggedInLoading(false));
         }
@@ -283,8 +281,8 @@ function App() {
                     <Footer />
                 </div>
             </div>
-            {activeModal === "login" && <LoginModal activeModal={activeModal} closeActiveModal={closeActiveModal} handleOutsideClick={handleOutsideClick} handleModalOpen={handleModalOpen} handleLogin={handleLogin} authError={authError}/>}
-            {activeModal === "signup" && <RegisterModal activeModal={activeModal} closeActiveModal={closeActiveModal} handleOutsideClick={handleOutsideClick} handleModalOpen={handleModalOpen} handleRegistration={handleRegistration} authError={authError}/>}
+            {activeModal === "login" && <LoginModal activeModal={activeModal} closeActiveModal={closeActiveModal} handleOutsideClick={handleOutsideClick} handleModalOpen={handleModalOpen} handleLogin={handleLogin} authError={authError} setAuthError={setAuthError}/>}
+            {activeModal === "signup" && <RegisterModal activeModal={activeModal} closeActiveModal={closeActiveModal} handleOutsideClick={handleOutsideClick} handleModalOpen={handleModalOpen} handleRegistration={handleRegistration} authError={authError} setAuthError={setAuthError}/>}
             {activeModal === "register-complete" && <RegisterSuccessModal activeModal={activeModal} closeActiveModal={closeActiveModal} handleOutsideClick={handleOutsideClick} handleModalOpen={handleModalOpen} />}
             {activeModal === "mobile-menu" && <MobileMenuModal activeModal={activeModal} closeActiveModal={closeActiveModal} handleOutsideClick={handleOutsideClick} handleModalOpen={handleModalOpen} handleLogout={handleLogout}/>}
         </CurrentUserContext.Provider>
